@@ -1,0 +1,1 @@
+<img src="/public/hlstatsimg/sort-{{ getSortOrder .URL }}.gif" alt="sort-{{ getSortOrder .URL }}.gif" />
