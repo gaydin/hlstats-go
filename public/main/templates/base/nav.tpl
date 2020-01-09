@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="" href="/"><img src="http://htlstats.gamser.ru/hlstatsimg/icons/sourcebans/title.png"
+    <a class="" href="/"><img src="/public/hlstatsimg/icons/sourcebans/title.png"
                               alt="HLstatsX Community Edition" title="HLstatsX Community Edition"></a>
 
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">

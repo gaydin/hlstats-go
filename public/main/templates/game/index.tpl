@@ -23,7 +23,7 @@
             <tbody>
             {{ range .servers }}
                 <tr>
-                    <td><img src="http://htlstats.gamser.ru/hlstatsimg/games/css/game.png"
+                    <td><img src="/public/hlstatsimg/games/css/game.png"
                              alt="css"/>&nbsp;<b>{{ .Name }}</b></td>
                     <td>{{ .Addr }}</td>
                     <td>{{ .ActMap }}</td>

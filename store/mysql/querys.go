@@ -18,7 +18,7 @@ const (
                 map_ct_wins,
                 map_ts_wins                 
             FROM
-                hlstats_Servers
+                hlstats_servers
             WHERE
                 game=?
             ORDER BY
@@ -29,117 +29,117 @@ const (
 	queryPlayersByGame = `
 	SELECT
 		SQL_CALC_FOUND_ROWS
-		hlstats_Players.playerId,
-		hlstats_Players.connection_time,
-		unhex(replace(hex(hlstats_Players.lastName), 'E280AE', '')) as lastName,
-		hlstats_Players.flag,
-		hlstats_Players.country,
-		hlstats_Players.skill,
-		hlstats_Players.kills,
-		hlstats_Players.deaths,
-		hlstats_Players.last_skill_change,
-		ROUND(hlstats_Players.kills/(IF(hlstats_Players.deaths=0, 1, hlstats_Players.deaths)), 2) AS kpd,
-		hlstats_Players.headshots,
-		ROUND(hlstats_Players.headshots/(IF(hlstats_Players.kills=0, 1, hlstats_Players.kills)), 2) AS hpk,
-		IFNULL(ROUND((hlstats_Players.hits / hlstats_Players.shots * 100), 1), 0) AS acc,
+		hlstats_players.playerId,
+		hlstats_players.connection_time,
+		unhex(replace(hex(hlstats_players.lastName), 'E280AE', '')) as lastName,
+		hlstats_players.flag,
+		hlstats_players.country,
+		hlstats_players.skill,
+		hlstats_players.kills,
+		hlstats_players.deaths,
+		hlstats_players.last_skill_change,
+		ROUND(hlstats_players.kills/(IF(hlstats_players.deaths=0, 1, hlstats_players.deaths)), 2) AS kpd,
+		hlstats_players.headshots,
+		ROUND(hlstats_players.headshots/(IF(hlstats_players.kills=0, 1, hlstats_players.kills)), 2) AS hpk,
+		IFNULL(ROUND((hlstats_players.hits / hlstats_players.shots * 100), 1), 0) AS acc,
 		activity
 	FROM
-		hlstats_Players
+		hlstats_players
 	WHERE
-		hlstats_Players.game = ?
-		AND hlstats_Players.hideranking = 0
-		AND hlstats_Players.kills >= 1
+		hlstats_players.game = ?
+		AND hlstats_players.hideranking = 0
+		AND hlstats_players.kills >= 1
 	ORDER BY
 		%s,
 		kpd desc,
-		hlstats_Players.lastName ASC
+		hlstats_players.lastName ASC
 	LIMIT ?, ?
 `
 	queryPlayerUniqueID = `
 	SELECT
 		*,
-		CAST(LEFT(hlstats_PlayerUniqueIds.uniqueId,1) AS unsigned) + CAST('76561197960265728' AS unsigned) + CAST(MID(hlstats_PlayerUniqueIds.uniqueId, 3,10)*2 AS unsigned) AS communityId
+		CAST(LEFT(hlstats_playeruniqueids.uniqueId,1) AS unsigned) + CAST('76561197960265728' AS unsigned) + CAST(MID(hlstats_playeruniqueids.uniqueId, 3,10)*2 AS unsigned) AS communityId
 	FROM
-		hlstats_PlayerUniqueIds
+		hlstats_playeruniqueids
 	WHERE
-		hlstats_PlayerUniqueIds.playerId = ?
+		hlstats_playeruniqueids.playerId = ?
 `
 
 	queryKillsPerDeathByPlayerID = `
 	SELECT
-		IFNULL(ROUND(SUM(hlstats_Events_Frags.killerId = :player) / IF(SUM(hlstats_Events_Frags.victimId = :player) = 0, 1, SUM(hlstats_Events_Frags.victimId = :player)), 2), '-')
+		IFNULL(ROUND(SUM(hlstats_events_frags.killerId = :player) / IF(SUM(hlstats_events_frags.victimId = :player) = 0, 1, SUM(hlstats_events_frags.victimId = :player)), 2), '-')
 	FROM
-		hlstats_Events_Frags
+		hlstats_events_frags
 	WHERE
 		(
-			hlstats_Events_Frags.killerId = :player
-			OR hlstats_Events_Frags.victimId = :player
+			hlstats_events_frags.killerId = :player
+			OR hlstats_events_frags.victimId = :player
 		)
 `
 
 	queryPlayerDataByPlayerID = `
 	SELECT
-		IFNULL(ROUND((SUM(hlstats_Events_Statsme.hits) / SUM(hlstats_Events_Statsme.shots) * 100), 2), 0.0) AS accuracy,
-		SUM(hlstats_Events_Statsme.shots) AS shots,
-		SUM(hlstats_Events_Statsme.hits) AS hits,
-		SUM(hlstats_Events_Statsme.kills) AS kills
+		IFNULL(ROUND((SUM(tats_events_Statsme.hits) / SUM(tats_events_Statsme.shots) * 100), 2), 0.0) AS accuracy,
+		SUM(tats_events_Statsme.shots) AS shots,
+		SUM(tats_events_Statsme.hits) AS hits,
+		SUM(tats_events_Statsme.kills) AS kills
 	FROM
-		hlstats_Events_Statsme
+		tats_events_Statsme
 	WHERE
-		hlstats_Events_Statsme.playerId='$player'
+		tats_events_Statsme.playerId='$player'
 `
 
 	queryPlayerWithClanByID = `
 	SELECT
-		hlstats_Players.playerId,
-		hlstats_Players.connection_time,
-		unhex(replace(hex(hlstats_Players.lastName), 'E280AE', '')) as lastName,
-		hlstats_Players.country,
-		hlstats_Players.city,
-		hlstats_Players.flag,
-		hlstats_Players.clan,
-		hlstats_Players.fullName,
-		hlstats_Players.email,
-		hlstats_Players.homepage,
-		hlstats_Players.icq,
-		hlstats_Players.game,
-		hlstats_Players.hideranking,
-		hlstats_Players.blockavatar,
-		hlstats_Players.skill,
-		hlstats_Players.kills,
-		hlstats_Players.deaths,
+		hlstats_players.playerId,
+		hlstats_players.connection_time,
+		unhex(replace(hex(hlstats_players.lastName), 'E280AE', '')) as lastName,
+		hlstats_players.country,
+		hlstats_players.city,
+		hlstats_players.flag,
+		hlstats_players.clan,
+		hlstats_players.fullName,
+		hlstats_players.email,
+		hlstats_players.homepage,
+		hlstats_players.icq,
+		hlstats_players.game,
+		hlstats_players.hideranking,
+		hlstats_players.blockavatar,
+		hlstats_players.skill,
+		hlstats_players.kills,
+		hlstats_players.deaths,
 		IFNULL(kills / deaths, '-') AS kpd,
-		hlstats_Players.suicides,
-		hlstats_Players.headshots,
+		hlstats_players.suicides,
+		hlstats_players.headshots,
 		IFNULL(headshots / kills, '-') AS hpk,
-		hlstats_Players.shots,
-		hlstats_Players.hits,
-		hlstats_Players.teamkills,
+		hlstats_players.shots,
+		hlstats_players.hits,
+		hlstats_players.teamkills,
 		IFNULL(ROUND((hits / shots * 100), 1), 0) AS acc,
-		CONCAT(hlstats_Clans.name) AS clan_name,
+		CONCAT(hlstats_clans.name) AS clan_name,
 		activity
 	FROM
-		hlstats_Players
+		hlstats_players
 	LEFT JOIN
-		hlstats_Clans
+		hlstats_clans
 	ON
-		hlstats_Clans.clanId = hlstats_Players.clan
+		hlstats_clans.clanId = hlstats_players.clan
 	WHERE
-		hlstats_Players.playerId = ?
+		hlstats_players.playerId = ?
 	LIMIT
 		1
 `
 
 	queryFavoriteMapByPlayer = `
 	SELECT
-		hlstats_Events_Entries.map,
+		hlstats_events_entries.map,
 		COUNT(map) AS cnt
 	FROM
-			hlstats_Events_Entries
+			hlstats_events_entries
 	WHERE
-			hlstats_Events_Entries.playerId = ?
+			hlstats_events_entries.playerId = ?
 	GROUP BY
-			hlstats_Events_Entries.map
+			hlstats_events_entries.map
 	ORDER BY
 			cnt DESC
 	LIMIT
@@ -147,20 +147,21 @@ const (
 `
 	queryFavoriteWeaponByPlayer = `
 	SELECT
-		hlstats_Events_Frags.weapon,
-		hlstats_Weapons.name,
-		COUNT(hlstats_Events_Frags.weapon) AS kills,
-		SUM(hlstats_Events_Frags.headshot=1) as headshots
+		hlstats_events_frags.weapon,
+		hlstats_weapons.name,
+		COUNT(hlstats_events_frags.weapon) AS kills,
+		SUM(hlstats_events_frags.headshot=1) as headshots
 	FROM
-		hlstats_Events_Frags
+		hlstats_events_frags
 	LEFT JOIN
-		hlstats_Weapons
+		hlstats_weapons
 	ON
-		hlstats_Weapons.code = hlstats_Events_Frags.weapon
+		hlstats_weapons.code = hlstats_events_frags.weapon
 	WHERE
-		hlstats_Events_Frags.killerId=?
+		hlstats_events_frags.killerId=?
 	GROUP BY
-		hlstats_Events_Frags.weapon
+		hlstats_events_frags.weapon,
+		hlstats_weapons.weaponid
 	ORDER BY
 		kills desc, headshots desc
 	LIMIT
@@ -171,7 +172,7 @@ const (
 		code,
 		name
 	FROM
-		hlstats_Games
+		hlstats_games
 	WHERE
 		hidden='0'
 	ORDER BY
@@ -179,41 +180,41 @@ const (
 `
 	queryWeaponsRealKillsAndHeadshots = `
 	SELECT
-		IF(IFNULL(SUM(hlstats_Weapons.kills), 0) = 0, 1, SUM(hlstats_Weapons.kills)) AS kills,
-		IF(IFNULL(SUM(hlstats_Weapons.headshots), 0) = 0, 1, SUM(hlstats_Weapons.headshots)) AS headshots
+		IF(IFNULL(SUM(hlstats_weapons.kills), 0) = 0, 1, SUM(hlstats_weapons.kills)) AS kills,
+		IF(IFNULL(SUM(hlstats_weapons.headshots), 0) = 0, 1, SUM(hlstats_weapons.headshots)) AS headshots
 	FROM
-		hlstats_Weapons
+		hlstats_weapons
 	WHERE
-		hlstats_Weapons.game = ?
+		hlstats_weapons.game = ?
 `
 
 	queryMapsRealKillsAndHeadshots = `
 	SELECT
-		SUM(hlstats_Maps_Counts.kills) AS kills,
-		SUM(hlstats_Maps_Counts.headshots)  AS headshots
+		SUM(hlstats_maps_counts.kills) AS kills,
+		SUM(hlstats_maps_counts.headshots)  AS headshots
 	FROM
-		hlstats_Maps_Counts
+		hlstats_maps_counts
 	WHERE
-		hlstats_Maps_Counts.game = ?
+		hlstats_maps_counts.game = ?
 `
 
 	queryWeapons = `
 	SELECT
-		hlstats_Weapons.code AS weapon,		
-		hlstats_Weapons.name,
-		hlstats_Weapons.kills, 
-		ROUND(hlstats_Weapons.kills / ? * 100, 2) AS kpercent,
-		hlstats_Weapons.headshots,
-		ROUND(hlstats_Weapons.headshots / IF(hlstats_Weapons.kills = 0, 1, hlstats_Weapons.kills), 2) AS hpk,
-		ROUND(hlstats_Weapons.headshots / ? * 100, 2) AS hpercent,
-		hlstats_Weapons.modifier
+		hlstats_weapons.code AS weapon,		
+		hlstats_weapons.name,
+		hlstats_weapons.kills, 
+		ROUND(hlstats_weapons.kills / ? * 100, 2) AS kpercent,
+		hlstats_weapons.headshots,
+		ROUND(hlstats_weapons.headshots / IF(hlstats_weapons.kills = 0, 1, hlstats_weapons.kills), 2) AS hpk,
+		ROUND(hlstats_weapons.headshots / ? * 100, 2) AS hpercent,
+		hlstats_weapons.modifier
 	FROM
-		hlstats_Weapons
+		hlstats_weapons
 	WHERE
-		hlstats_Weapons.game = ?
-		AND hlstats_Weapons.kills > 0 
+		hlstats_weapons.game = ?
+		AND hlstats_weapons.kills > 0 
 	GROUP BY
-		hlstats_Weapons.weaponId
+		hlstats_weapons.weaponId
 	ORDER BY
 		%s,
 		weapon desc
@@ -221,26 +222,26 @@ const (
 
 	queryGameByCode = `
 	SELECT
-		hlstats_Games.name
+		hlstats_games.name
 	FROM
-		hlstats_Games
+		hlstats_games
 	WHERE
-		hlstats_Games.code = ?
+		hlstats_games.code = ?
 `
 
 	queryActionsByGame = `
 	SELECT
-		hlstats_Actions.code,
-		hlstats_Actions.description,
-		hlstats_Actions.count,
-		hlstats_Actions.reward_player
+		hlstats_actions.code,
+		hlstats_actions.description,
+		hlstats_actions.count,
+		hlstats_actions.reward_player
 	FROM
-		hlstats_Actions
+		hlstats_actions
 	WHERE
-		hlstats_Actions.game = ?
-		AND hlstats_Actions.count > 0
+		hlstats_actions.game = ?
+		AND hlstats_actions.count > 0
 	GROUP BY
-		hlstats_Actions.id
+		hlstats_actions.id
 	ORDER BY
 		count desc, 
 		description desc
@@ -248,14 +249,14 @@ const (
 `
 
 	querySkillChangeByPlayer = `
-	SELECT UNIX_TIMESTAMP(eventTime) AS ts, skill, skill_change FROM hlstats_Players_History WHERE playerId = ? ORDER BY eventTime DESC LIMIT 30
+	SELECT UNIX_TIMESTAMP(eventTime) AS ts, skill, skill_change FROM hlstats_players_history WHERE playerId = ? ORDER BY eventTime DESC LIMIT 30
 `
 
 	queryTotalPlayers24hByGame = `
 			SELECT 
 				players 
 			FROM 
-				hlstats_Trend 
+				hlstats_trend 
 			WHERE       
 				game=?
 				AND timestamp<=?
@@ -267,7 +268,7 @@ const (
 	SELECT
 		count(*)
 	FROM
-		hlstats_Players
+		hlstats_players
 	WHERE 
 		game=?
 `
@@ -278,67 +279,67 @@ const (
 		SUM(headshots) AS count_headshots,
 		count(serverId)	AS count_servers	
 	FROM
-		hlstats_Servers
+		hlstats_servers
 	WHERE 
 		game=?
 `
 
 	queryMapKillsAndHeadshotsByGame = `
 	 	SELECT
-		SUM(hlstats_Maps_Counts.kills) AS count_kills,
-		SUM(hlstats_Maps_Counts.headshots) AS count_headshots
+		SUM(hlstats_maps_counts.kills) AS count_kills,
+		SUM(hlstats_maps_counts.headshots) AS count_headshots
 	FROM
-		hlstats_Maps_Counts
+		hlstats_maps_counts
 	WHERE
-		hlstats_Maps_Counts.game = ?
+		hlstats_maps_counts.game = ?
 `
 
 	queryMaps = `
 	SELECT
-		IF(hlstats_Maps_Counts.map = '', '(Unaccounted)', hlstats_Maps_Counts.map) AS map,
-		hlstats_Maps_Counts.kills,
+		IF(hlstats_maps_counts.map = '', '(Unaccounted)', hlstats_maps_counts.map) AS map,
+		hlstats_maps_counts.kills,
 		ROUND(kills / ? * 100, 2) AS kpercent,
-		hlstats_Maps_Counts.headshots,
-		ROUND(hlstats_Maps_Counts.headshots / IF(hlstats_Maps_Counts.kills = 0, 1, hlstats_Maps_Counts.kills), 2) AS hpk,
-		ROUND(hlstats_Maps_Counts.headshots / ? * 100, 2) AS hpercent
+		hlstats_maps_counts.headshots,
+		ROUND(hlstats_maps_counts.headshots / IF(hlstats_maps_counts.kills = 0, 1, hlstats_maps_counts.kills), 2) AS hpk,
+		ROUND(hlstats_maps_counts.headshots / ? * 100, 2) AS hpercent
 	FROM
-		hlstats_Maps_Counts
+		hlstats_maps_counts
 	WHERE
-		hlstats_Maps_Counts.game = ?
+		hlstats_maps_counts.game = ?
 	ORDER BY
 		%s,
 		map asc
 `
 	queryMapEventsFragsAndPlayers = `
 	SELECT
-		hlstats_Events_Frags.killerId,
-		hlstats_Players.lastName,
-		hlstats_Players.flag as flag,
-		COUNT(hlstats_Events_Frags.map) AS frags,
-		SUM(hlstats_Events_Frags.headshot=1) as headshots,
-		IFNULL(SUM(hlstats_Events_Frags.headshot=1) / Count(hlstats_Events_Frags.map), '-') AS hpk
+		hlstats_events_frags.killerId,
+		hlstats_players.lastName,
+		hlstats_players.flag as flag,
+		COUNT(hlstats_events_frags.map) AS frags,
+		SUM(hlstats_events_frags.headshot=1) as headshots,
+		IFNULL(SUM(hlstats_events_frags.headshot=1) / Count(hlstats_events_frags.map), '-') AS hpk
 	FROM
-		hlstats_Events_Frags,
-		hlstats_Players	
+		hlstats_events_frags,
+		hlstats_players	
 	WHERE
-		hlstats_Players.playerId = hlstats_Events_Frags.killerId
-		AND hlstats_Events_Frags.map=?
-		AND hlstats_Players.game=?
-		AND hlstats_Players.hideranking<>'1'
+		hlstats_players.playerId = hlstats_events_frags.killerId
+		AND hlstats_events_frags.map=?
+		AND hlstats_players.game=?
+		AND hlstats_players.hideranking<>'1'
 	GROUP BY
-		hlstats_Events_Frags.killerId
+		hlstats_events_frags.killerId
 `
 
 	queryMapTotalKills = `
 	SELECT
-		COUNT(DISTINCT hlstats_Events_Frags.killerId),
-		SUM(hlstats_Events_Frags.map='$map')
+		COUNT(DISTINCT hlstats_events_frags.killerId),
+		SUM(hlstats_events_frags.map='$map')
 	FROM
-		hlstats_Events_Frags,
-	  hlstats_Servers
+		hlstats_events_frags,
+	  hlstats_servers
 	WHERE
-		hlstats_Servers.serverId = hlstats_Events_Frags.serverId
-		AND hlstats_Events_Frags.map='$map'
-		AND hlstats_Servers.game='$game'
+		hlstats_servers.serverId = hlstats_events_frags.serverId
+		AND hlstats_events_frags.map='$map'
+		AND hlstats_servers.game='$game'
 `
 )
