@@ -1,10 +1,13 @@
 package mysql
 
 import (
+	"fmt"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+
+	"go-hlstats/store/mysql/migrations"
 )
 
 type DataStore struct {
@@ -34,23 +37,8 @@ func connect(driver, config string) (*sqlx.DB, error) {
 	if err := db.Ping(); err != nil {
 		return nil, err
 	}
-	//if err := migration(driver, db); err != nil {
-	//	return nil, fmt.Errorf("migration fail: %v", err)
-	//}
+	if err := migrations.Migrate(db.DB); err != nil {
+		return nil, fmt.Errorf("migration fail: %v", err)
+	}
 	return db, nil
 }
-
-//func migration(driver string, db *sqlx.DB) error {
-//	migrate.SetTable("migrations")
-//	migrations := &migrate.FileMigrationSource{
-//		Dir: "./migrations",
-//	}
-//	n, err := migrate.Exec(db.DB, driver, migrations, migrate.Up)
-//	if err != nil {
-//		return err
-//	}
-//	if n != 0 {
-//		fmt.Printf("Applied %d migrations!\n", n)
-//	}
-//	return nil
-//}

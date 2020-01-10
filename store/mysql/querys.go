@@ -25,6 +25,16 @@ const (
                 sortorder, name, serverId
 `
 
+	queryUserByLogin = `
+				SELECT
+					*
+				FROM
+					hlstats_users
+				WHERE
+					username=?
+				LIMIT 1
+`
+
 	// TODO: order by, $minEvent, $maxEvent
 	queryPlayersByGame = `
 	SELECT
