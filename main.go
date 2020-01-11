@@ -18,6 +18,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	e := echo.New()
 	e.HideBanner = true
