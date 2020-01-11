@@ -3,6 +3,7 @@ package middleware
 import (
 	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/dchest/authcookie"
 	"github.com/labstack/echo/v4"
@@ -28,11 +29,6 @@ func AuthMiddleware(store *mysql.DataStore) echo.MiddlewareFunc {
 					return err
 				}
 				ctx.Set("login", dbAccount)
-				//user, err := userStore.GetUserLogin(ctx, login)
-				//if err != nil {
-				//	log.Error("AuthMiddleware GetUserLogin error", zap.Error(err))
-				//	return
-				//}
 			}
 			return next(ctx)
 		}
@@ -43,12 +39,13 @@ func RequireLogin() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(ctx echo.Context) error {
 			if ctx.Request().URL.Path == "/admin/auth" {
+
 				return next(ctx)
 			}
 
 			login := getUser(ctx)
 			if login == nil {
-				return ctx.Render(200, "admin/auth", nil)
+				return ctx.Redirect(http.StatusFound, "/admin/auth")
 			}
 
 			return next(ctx)

@@ -28,8 +28,10 @@ func RegisterHandlers(e *echo.Echo, store *mysql.DataStore) {
 	adminGroup := e.Group("/admin")
 	adminGroup.Use(middleware.RequireLogin())
 	{
+		adminGroup.GET("/auth", handlers.AdminAuthGET())
 		adminGroup.POST("/auth", handlers.AdminAuthPOST(store))
-		adminGroup.GET("/", handlers.AdminIndexGET())
+		adminGroup.GET("/", handlers.AdminIndexGET(store))
+		adminGroup.POST("/", handlers.AdminIndexPOST(store))
 		adminGroup.GET("/options", handlers.AdminOptionsGET(store))
 		//adminGroup.GET("/", )
 	}

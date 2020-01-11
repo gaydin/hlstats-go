@@ -1,7 +1,6 @@
 {{ template "base/head" . }}
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
         {{ if ( .playersLastDay ) and gt .playersLastDay -1}}
             Tracking <b>{{ .totalPlayers }}</b> players (<b>+{{ .players_last_day }}</b> new players last 24h) with<b>{{ .total_kills }}</b> kills (<b>+{{ .kills_last_day }}</b> last 24h) and<b>{{ .totalHeadshots }}</b> headshots (<b>{{ .hpk }}%</b>) on <b>{{ .totalServers }}</b> servers
         {{ else }}

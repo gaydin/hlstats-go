@@ -14,6 +14,12 @@ import (
 	"go-hlstats/store/mysql"
 )
 
+func AdminAuthGET() echo.HandlerFunc {
+	return func(ctx echo.Context) error {
+		return ctx.Render(200, "admin/auth", nil)
+	}
+}
+
 func AdminAuthPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		username := ctx.FormValue("login")
@@ -37,7 +43,7 @@ func AdminAuthPOST(store *mysql.DataStore) echo.HandlerFunc {
 		}
 
 		setSession(ctx, dbAccount.Username)
-		return ctx.Redirect(http.StatusFound, "/")
+		return ctx.Redirect(http.StatusFound, "/admin/")
 	}
 }
 

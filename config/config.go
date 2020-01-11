@@ -15,6 +15,8 @@ type Config struct {
 	DBPassword string `env:"DB_PASSWORD"`
 	DBName     string `env:"DB_NAME"`
 	DBDriver   string `env:"DB_DRIVER"`
+
+	CookieSessionSecret string `env:"COOKIE_SECRET"`
 }
 
 func (c *Config) DBUrl() string {
