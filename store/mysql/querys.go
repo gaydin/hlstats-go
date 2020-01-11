@@ -28,7 +28,7 @@ const (
 				SELECT
 					*
 				FROM
-					hlstats_users
+					hlstats_Users
 				WHERE
 					username=?
 				LIMIT 1
