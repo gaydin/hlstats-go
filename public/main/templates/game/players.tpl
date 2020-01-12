@@ -58,7 +58,7 @@
                 <td>{{ .Kills }}</td>
                 <td>{{ .Deaths }}</td>
                 <td>{{ .Kpd.Value }}</td>
-                <td>{{ .HeadShots }}</td>
+                <td>{{ .Headshots }}</td>
                 <td>{{ .Hpk.Value }}</td>
                 <td>0.0%</td>
             </tr>

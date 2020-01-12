@@ -31,7 +31,7 @@ type (
 		Icq             sql.NullInt64  `db:"icq"`
 		Game            string         `db:"game"`
 		HideRanking     int64          `db:"hideranking"`
-		HeadShots       int64          `db:"headshots"`
+		Headshots       int64          `db:"headshots"`
 		LastSkillChange int64          `db:"last_skill_change"`
 		DisplayEvents   int64          `db:"displayEvents"`
 		KillStreak      int64          `db:"kill_streak"`

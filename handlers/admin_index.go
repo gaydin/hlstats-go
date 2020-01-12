@@ -95,8 +95,15 @@ func AdminIndexGET(store *mysql.DataStore) echo.HandlerFunc {
 
 		game := ctx.Param("game")
 
+		games, err := store.GetGames(false)
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+
 		return ctx.Render(http.StatusOK, "admin/index", map[string]interface{}{
 			"game":    game,
+			"games":   games,
 			"login":   ctx.Get("login"),
 			"options": options,
 		})

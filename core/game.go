@@ -7,4 +7,9 @@ type (
 		Hidden   int64  `db:"hidden"`
 		RealGame string `db:"realgame"`
 	}
+
+	SupportedGame struct {
+		Code string `db:"code"`
+		Name string `db:"name"`
+	}
 )

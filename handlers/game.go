@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 
@@ -13,22 +14,22 @@ func Game(store *mysql.DataStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		game := c.Param("game")
 		servers, err := store.GetServerByGame(game)
-		if err != nil {
+		if err != nil && err != sql.ErrNoRows {
 			return err
 		}
 
 		totalPlayers, err := store.GetTotalPlayersByGame(game)
-		if err != nil {
+		if err != nil && err != sql.ErrNoRows {
 			return err
 		}
 
 		totalPlayers24h, err := store.GetTotalPlayers24hByGame(game)
-		if err != nil {
+		if err != nil && err != sql.ErrNoRows {
 			return err
 		}
 
 		totalStats, err := store.GetGameGetTotalStatsByGame(game)
-		if err != nil {
+		if err != nil && err != sql.ErrNoRows {
 			return err
 		}
 

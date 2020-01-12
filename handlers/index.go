@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 
+	"go-hlstats/core"
 	"go-hlstats/store/mysql"
 )
 
@@ -22,6 +24,22 @@ func Index(store *mysql.DataStore) echo.HandlerFunc {
 			return c.Redirect(http.StatusFound, fmt.Sprintf("/game/%s/", games[0].Code))
 		}
 
-		return c.Render(http.StatusOK, "index", nil)
+		topPlayersByGame := make(map[string]*core.Player)
+		for i := range games {
+			topPlayer, err := store.GetTopPlayerByGame(games[i].Code)
+			if err != nil {
+				if err == sql.ErrNoRows {
+					continue
+				}
+				fmt.Println(err)
+				return err
+			}
+			topPlayersByGame[games[i].Code] = topPlayer
+		}
+
+		return c.Render(http.StatusOK, "index", map[string]interface{}{
+			"games":              games,
+			"top_player_by_game": topPlayersByGame,
+		})
 	}
 }

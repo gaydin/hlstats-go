@@ -42,7 +42,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="tab-content ml-1" id="myTabContent">
+                                <div class="ml-1">
                                     <div class="row">
                                         <div class="col-sm-4 col-md-3 col-6">
                                             <label style="font-weight:bold;">Real Name</label>
@@ -140,100 +140,157 @@
                 <br>
                 <div class="card">
                     <div class="card-header">
-                        Общая статистика
+                        Statistics Summary
                     </div>
                     <div class="card-body">
                         <table>
-                            <tr>
-                                <td style="width:50%;">Activity:</td>
-                                <td style="width:35%;">
-                                    <img src="/public/hlstatsimg/bar6.gif" style="width:60%;height:10px;border:0;"
-                                         alt="60%"/>
-                                </td>
-                                <td style="width:15%;">60%</td>
-                            </tr>
-                            <tr>
-                                <td>Points:</td>
-                                <td style="width:55%;" colspan="2">
-                                    <b>{{ .player.Skill }}</b></td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Rank:</td>
-                                <td style="width:55%;" colspan="2">
-                                    <b>3</b></td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Kills per Minute:</td>
-                                <td style="width:55%;" colspan="2">
-                                    4.13
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Kills per Death:</td>
-                                <td style="width:55%;" colspan="2">
-                                    2.4420 (-*)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Headshots per Kill:</td>
-                                <td style="width:55%;" colspan="2">
-                                    1.0000 (-*)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Shots per Kill:</td>
-                                <td style="width:55%;" colspan="2">
-                                    -
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Weapon Accuracy:</td>
-                                <td style="width:55%;" colspan="2">
-                                    28.3% (0%*)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Headshots:</td>
-                                <td style="width:55%;" colspan="2">
-                                    337 (0*)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Kills:</td>
-                                <td style="width:55%;" colspan="2">
-                                    337 (0*)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Deaths:</td>
-                                <td style="width:55%;" colspan="2">
-                                    138 (0*)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Longest Kill Streak:</td>
-                                <td style="width:55%;" colspan="2">
-                                    18
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Longest Death Streak:</td>
-                                <td style="width:55%;" colspan="2">
-                                    6
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Suicides:</td>
-                                <td style="width:55%;" colspan="2">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:45%;">Teammate Kills:</td>
-                                <td style="width:55%;" colspan="2">
-                                    0 (0*)
-                                </td>
-                            </tr>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Activity</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    Полоска
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    (Not Specified)
+                                </div>
+                            </div>
+                            <hr/>
+
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Points</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Skill }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Rank</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    TODO
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Kills per Minute</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ if gt .player.ConnectionTime 0 }}
+                                        {{ .killsPerMinute }}
+                                    {{ else }}
+                                        -
+                                    {{ end }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Kills per Death</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Kpd.Float64 }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Headshots per Kill</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Hpk.Float64 }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Shots per Kill</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    TODO
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Weapon Accuracy</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Acc.Float64 }}%
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Headshots</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ if eq .player.Headshots 0 }}
+                                        TODO: realheadshots
+                                    {{ else }}
+                                        {{ .player.Headshots }}
+                                    {{ end }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Kills</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Kills }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Deaths</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Deaths }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Longest Kill Streak</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.KillStreak }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Longest Death Streak</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.DeathStreak }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Suicides</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.Suicides }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 col-6">
+                                    <label>Teammate Kills</label>
+                                </div>
+                                <div class="col-md-8 col-6">
+                                    {{ .player.TeamKills }}
+                                </div>
+                            </div>
+                            <hr/>
                         </table>
                         <br/>
                     </div>

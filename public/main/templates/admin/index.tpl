@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            {{ template "admin/side_menu" . }}
+            {{ template "admin/side_menu" .games }}
         </div>
         <div class="col col-lg">
             <div class="my-3 p-3 bg-white rounded shadow-sm">
@@ -213,6 +213,7 @@ RewriteRule sig-(.*)-(.*).png$ sig.php?player_id=$1&background=$2 [L]</textarea>
                             {{ template "admin/index_form" .options.awardribbonscols }}
                         </div>
                     </div>
+                    <hr>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -238,6 +239,7 @@ RewriteRule sig-(.*)-(.*).png$ sig.php?player_id=$1&background=$2 [L]</textarea>
                             {{ template "admin/index_form" .options.counter_hits }}
                         </div>
                     </div>
+                    <hr>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -251,6 +253,7 @@ RewriteRule sig-(.*)-(.*).png$ sig.php?player_id=$1&background=$2 [L]</textarea>
                     <small id="emailHelp" class="form-text text-muted">(%MAP% = map, %GAME% = gamecode). Leave blank to
                         suppress download link</small>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <hr>
                 </form>
             </div>
 

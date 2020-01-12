@@ -20,9 +20,16 @@ func (db *DataStore) GetServerByGame(game string) ([]*ExtendedServer, error) {
 // TODO: hidden
 func (db *DataStore) GetGames(hidden bool) ([]*core.Game, error) {
 	var games []*core.Game
-	if err := db.Select(&games, queryGames); err != nil {
-		return nil, err
+	if hidden {
+		if err := db.Select(&games, queryGames); err != nil {
+			return nil, err
+		}
+	} else {
+		if err := db.Select(&games, queryGamesHidden); err != nil {
+			return nil, err
+		}
 	}
+
 	return games, nil
 }
 

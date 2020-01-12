@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -60,6 +61,7 @@ func Player(store *mysql.DataStore) echo.HandlerFunc {
 			"favoriteWeapon": favoriteWeapon,
 			"playerID":       playerID,
 			"player":         playerData,
+			"killsPerMinute": fmt.Sprintf("%.2f", float64(playerData.Kills)/float64(playerData.ConnectionTime/60)),
 			"UQID":           playerUniqueID.UniqueID,
 			"COID":           playerUniqueID.CommunityId,
 		})

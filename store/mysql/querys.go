@@ -116,6 +116,8 @@ const (
 		hlstats_Players.blockavatar,
 		hlstats_Players.skill,
 		hlstats_Players.kills,
+		hlstats_Players.kill_streak,
+		hlstats_Players.death_streak,
 		hlstats_Players.deaths,
 		IFNULL(kills / deaths, '-') AS kpd,
 		hlstats_Players.suicides,
@@ -179,7 +181,19 @@ const (
 	queryGames = `
 	SELECT
 		code,
-		name
+		name,
+		realgame,
+		hidden
+	FROM
+		hlstats_Games
+	ORDER BY
+		realgame, name ASC
+`
+	queryGamesHidden = `
+	SELECT
+		code,
+		name,
+		realgame
 	FROM
 		hlstats_Games
 	WHERE

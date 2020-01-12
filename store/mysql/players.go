@@ -111,3 +111,51 @@ func (db *DataStore) GetFavoriteWeaponByPlayer(id int64) (*FavoriteWeapon, error
 	}
 	return &favoriteWeapon, nil
 }
+
+// TODO: sort by rank from options
+func (db *DataStore) GetTopPlayerByGame(game string) (*core.Player, error) {
+	var player core.Player
+	if err := db.Get(&player, getTopPlayerByGame, game); err != nil {
+		return nil, err
+	}
+	return &player, nil
+}
+
+const getTopPlayerByGame = `
+SELECT
+    playerId,
+    lastName,
+    activity
+FROM
+    hlstats_Players
+WHERE
+        game=?
+  AND hideranking=0
+ORDER BY
+    skill DESC,
+    (kills/IF(deaths=0,1,deaths)) DESC
+LIMIT 1
+`
+
+type PlayerStatisticsSummary struct {
+	Activity           int64
+	Points             float64
+	Rank               int64
+	KillsPerMinute     float64
+	KillsPerDeath      float64
+	HeadshotsPerKill   float64
+	ShotsPerKill       float64
+	WeaponAccuracy     float64
+	Headshots          int64
+	Kills              int64
+	Deaths             int64
+	LongestKillStreak  int64
+	LongestDeathStreak int64
+	Suicides           int64
+	TeammateKills      int64
+}
+
+//
+//func (db *DataStore) GetPlayerStatisticsSummary(id int64, player *ExtendedPlayer) (*PlayerStatisticsSummary, error) {
+//	db.GetPlayerWithClanByID()
+//}

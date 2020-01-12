@@ -15,7 +15,7 @@
             <td >{{ $i }}</td>
             <td >{{ .LastName }}</td>
             <td >{{ .Frags }}</td>
-            <td >{{ .HeadShots }}</td>
+            <td >{{ .Headshots }}</td>
             <td >{{ .HPK }}</td>
         </tr>
     {{ end }}

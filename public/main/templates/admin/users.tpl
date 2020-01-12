@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            {{ template "admin/side_menu" . }}
+            {{ template "admin/side_menu" .games }}
         </div>
         <div class="col col-lg">
             <div class="my-3 p-3 bg-white rounded shadow-sm">

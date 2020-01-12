@@ -23,9 +23,15 @@ func AdminUsersGET(store *mysql.DataStore) echo.HandlerFunc {
 		if err != nil {
 			log.Error().Err(err).Msg("Handler AdminUsersGET GetUsers")
 		}
+		games, err := store.GetGames(false)
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
 
 		return ctx.Render(http.StatusOK, "admin/users", map[string]interface{}{
 			"game":  "",
+			"games": games,
 			"login": ctx.Get("login"),
 			"users": users,
 		})
@@ -70,6 +76,7 @@ func AdminUsersPOST(store *mysql.DataStore) echo.HandlerFunc {
 		}
 
 		// update or delete users
+		// TODO: rows[]
 		for _, userName := range getUserNamesForUpdate(ctx.Request().PostForm) {
 			if needDelete(ctx.Request().PostForm[userName+"_delete"]) {
 				err := store.DeleteUser(userName)
