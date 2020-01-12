@@ -37,7 +37,7 @@ test: ## Run unittests
 
 build: ## Build the binary file
 	@go build --a -installsuffix cgo -ldflags '-s -w $(LDFLAGS)' -o ./build/hlstats/hlstats
-	@cp -r public migrations ./build/hlstats
+	@cp -r public ./build/hlstats
 
 
 clean: ## Remove previous build
