@@ -1,0 +1,38 @@
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+workspace:
+  base: /go
+  path: src/github.com/gaydin/hlstats-go
+
+steps:
+  - name: build
+    image: golang:1.13.6
+    volumes:
+      - name: cache
+        path: /go/pkg/mod
+    commands:
+      - make build
+
+  - name: publish
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      registry: docker.pkg.github.com
+      repo: docker.pkg.github.com/gaydin/hlstats-go/server-web
+      tags: latest
+    when:
+      branch:
+        - master
+
+volumes:
+  - name: cache
+    host:
+      path: /docker/cache
