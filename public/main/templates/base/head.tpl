@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 
-<body class="page-user">
+<body class="page-user bg-light">
 
 {{ template "base/nav" . }}
 

@@ -8,8 +8,12 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/labstack/echo/v4"
+	"github.com/rs/zerolog"
+
+	"go-hlstats/config"
 )
 
 type Template struct {
@@ -26,8 +30,8 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-func New(templateName string) (*Template, error) {
-	templateDir := filepath.Join("public", templateName)
+func New(config *config.Config) (*Template, error) {
+	templateDir := filepath.Join("public", config.TemplateName)
 	t, err := findAndParseTemplates(templateDir + "/templates")
 	if err != nil {
 		return nil, err
@@ -35,6 +39,20 @@ func New(templateName string) (*Template, error) {
 	return &Template{
 		templates: t,
 	}, nil
+}
+
+func TemplateUpdater(e *echo.Echo, conf *config.Config, log zerolog.Logger) {
+	go func() {
+		for {
+			time.Sleep(2 * time.Second)
+			r, err := New(conf)
+			if err != nil {
+				log.Debug().Err(err).Msg("TemplateUpdater")
+				continue
+			}
+			e.Renderer = r
+		}
+	}()
 }
 
 func findAndParseTemplates(rootDir string) (*template.Template, error) {

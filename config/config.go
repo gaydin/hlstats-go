@@ -15,21 +15,24 @@ type Config struct {
 	DBPassword string `env:"DB_PASSWORD"`
 	DBName     string `env:"DB_NAME"`
 	DBDriver   string `env:"DB_DRIVER"`
+	DBUrl      string
 
 	CookieSessionSecret string `env:"COOKIE_SECRET"`
-}
 
-func (c *Config) DBUrl() string {
-	return fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true",
-		c.DBUser,
-		c.DBPassword,
-		c.DBAddress,
-		c.DBName,
-	)
+	TemplateName string `env:"TEMPLATE_NAME" envDefault:"main"`
 }
 
 func Load() (*Config, error) {
 	var conf Config
 	err := env.Parse(&conf)
+	if err != nil {
+		return nil, err
+	}
+	conf.DBUrl = fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true",
+		conf.DBUser,
+		conf.DBPassword,
+		conf.DBAddress,
+		conf.DBName,
+	)
 	return &conf, err
 }

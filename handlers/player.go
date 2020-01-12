@@ -2,38 +2,39 @@ package handlers
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
 
 	"go-hlstats/core"
+	"go-hlstats/middleware"
 	"go-hlstats/store/mysql"
 )
 
 func Player(store *mysql.DataStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		log := middleware.FromContext(c)
 		playerID, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 		if playerID == 0 {
 			return nil
 		}
 		playerData, err := store.GetPlayerWithClanByID(playerID)
 		if err != nil {
-			log.Println(err)
+			log.Error().Err(err).Msg("Handler Player GetPlayerWithClanByID")
 			return err
 		}
 
 		playerUniqueID, err := store.GetPlayerUniqueID(playerID)
 		if err != nil {
-			log.Println(err)
+			log.Error().Err(err).Msg("Handler Player GetPlayerUniqueID")
 			return err
 		}
 
 		favoriteWeapon, err := store.GetFavoriteWeaponByPlayer(playerID)
 		if err != nil {
 			if err != sql.ErrNoRows {
-				log.Println(err)
+				log.Error().Err(err).Msg("Handler Player GetFavoriteWeaponByPlayer")
 				return err
 			}
 		}
@@ -41,14 +42,14 @@ func Player(store *mysql.DataStore) echo.HandlerFunc {
 		favoriteMap, err := store.GetFavoriteMapByPlayer(playerID)
 		if err != nil {
 			if err != sql.ErrNoRows {
-				log.Println(err)
+				log.Error().Err(err).Msg("Handler Player GetFavoriteMapByPlayer")
 				return err
 			}
 		}
 
 		skillChanges, err := store.GetSkillChangeByPlayer(playerID)
 		if err != nil {
-			log.Println(err)
+			log.Error().Err(err).Msg("Handler Player GetSkillChangeByPlayer")
 			return err
 		}
 

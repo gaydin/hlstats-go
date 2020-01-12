@@ -1,8 +1,9 @@
 package main
 
 import (
-	"log"
-	"time"
+	"os"
+
+	"github.com/rs/zerolog"
 
 	"go-hlstats/config"
 	"go-hlstats/modules/render"
@@ -10,44 +11,39 @@ import (
 	"go-hlstats/store/mysql"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	log := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	conf, err := config.Load()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("msg")
 	}
 
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	e := echo.New()
 	e.HideBanner = true
 	e.HidePort = true
-	r, err := render.New("main")
+	r, err := render.New(conf)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("init render error")
 		return
 	}
 
-	go func() {
-		for {
-			time.Sleep(2 * time.Second)
-			r, err := render.New("main")
-			if err != nil {
-				log.Println(err)
-				continue
-			}
-			e.Renderer = r
-		}
-	}()
 	e.Renderer = r
+
+	if conf.Debug {
+		render.TemplateUpdater(e, conf, log)
+	}
+
 	e.Static("/public/*", "public/main/static")
-	s, err := mysql.New(conf.DBUrl())
+
+	store, err := mysql.New(conf.DBUrl)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("init store error")
 		return
 	}
-	router.RegisterHandlers(e, s)
-	e.Use(middleware.Logger())
+
+	router.RegisterHandlers(e, store, log)
+	log.Info().Str("port", conf.Port).Bool("debug", conf.Debug).Msg("Starting server")
 	e.Logger.Fatal(e.Start(":" + conf.Port))
 }

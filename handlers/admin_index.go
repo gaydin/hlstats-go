@@ -73,14 +73,12 @@ func AdminIndexGET(store *mysql.DataStore) echo.HandlerFunc {
 	}
 
 	return func(ctx echo.Context) error {
-		fmt.Println("handler index")
-		fmt.Println(ctx.Get("login"))
 		options, err := store.GetOptions()
 		if err != nil {
 			fmt.Println(err)
 			return err
 		}
-		fmt.Printf("%+v", options)
+
 		for i := range options {
 			if _, ok := selectOptionsTypes[i]; ok {
 				options[i].Type = "select"

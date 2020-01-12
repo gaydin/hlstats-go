@@ -1,21 +1,21 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 
+	"go-hlstats/middleware"
 	"go-hlstats/store/mysql"
 )
 
 func GameMap(store *mysql.DataStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		log := middleware.FromContext(c)
 		gameMap, game := c.Param("map"), c.Param("game")
-		//store.GetGameByCode("")
 		eventsFragsAndPlayers, err := store.GetMapEventsFragsAndPlayers(gameMap, game)
 		if err != nil {
-			log.Println(err)
+			log.Error().Err(err).Msg("Handler GameMap GetMapEventsFragsAndPlayers")
 			return err
 		}
 		return c.Render(http.StatusOK, "game/map", map[string]interface{}{

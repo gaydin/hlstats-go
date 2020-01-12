@@ -4,13 +4,13 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 
 	"github.com/dchest/authcookie"
 	"github.com/labstack/echo/v4"
 
+	"go-hlstats/middleware"
 	"go-hlstats/store/mysql"
 )
 
@@ -22,6 +22,7 @@ func AdminAuthGET() echo.HandlerFunc {
 
 func AdminAuthPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
+		log := middleware.FromContext(ctx)
 		username := ctx.FormValue("login")
 		password := ctx.FormValue("password")
 		if username == "" || password == "" {
@@ -29,9 +30,9 @@ func AdminAuthPOST(store *mysql.DataStore) echo.HandlerFunc {
 			return ctx.Redirect(http.StatusFound, ctx.Request().URL.Path)
 		}
 
-		dbAccount, err := store.GetUserLogin(username)
+		dbAccount, err := store.GetUser(username)
 		if err != nil {
-			log.Println(err)
+			log.Error().Err(err).Msg("Handler AdminAuthPOST GetUserLogin")
 			return err
 		}
 

@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -39,11 +38,9 @@ func connect(driver, config string) (*sqlx.DB, error) {
 	// hack for init migration table when detect db php hlstatsx
 	if needCreateMigrationTable(db) {
 		if err := createMigrationTable(db); err != nil {
-			log.Println(err)
 			return nil, err
 		}
 		if err := insertMigrationTableData(db); err != nil {
-			log.Println(err)
 			return nil, err
 		}
 	}

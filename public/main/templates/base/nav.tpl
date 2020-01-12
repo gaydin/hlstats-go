@@ -11,7 +11,7 @@
 {{ if ( .game ) and ne .game "" }}
     <nav class="navbar nav nav-underline navbar-expand-lg navbar-light bg-light rounded">
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ">
                 <li class="nav-item{{if .pageIsGame }} active{{end}}">
                     <a class="nav-link" href="/game/{{ .game }}/">Серверы</a>
                 </li>
