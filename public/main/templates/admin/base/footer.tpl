@@ -1,3 +1,5 @@
+        </div><!-- #content  -->
+    </div><!-- .wrapper  -->
 
 </div> <!-- .page-content -->
 
@@ -11,7 +13,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
+            $('.sidebar').toggleClass('active');
+            $('.sidebar').toggleClass('col-md-3');
+            $('.sidebar').toggleClass('col-md-1');
+            $('#content').toggleClass('col-md-9');
+            $('#content').toggleClass('col-md-11');
         });
     });
 </script>

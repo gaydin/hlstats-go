@@ -1,10 +1,6 @@
 {{ $root := . }}
-{{ template "base/head" . }}
-<div class="row justify-content-center">
-    <div class="col-sm-2">
-        {{ template "admin/side_menu" .menu_games }}
-    </div>
-    <div class="col-sm-6">
+{{ template "admin/base/head" . }}
+
         <div class="my-3 p-3 bg-white rounded shadow-sm">
             <tr>
                 <td width="2%">&nbsp;</td>
@@ -63,6 +59,5 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
         </div>
-    </div>
-</div>
-{{ template "base/footer" . }}
+
+{{ template "admin/base/footer" . }}
