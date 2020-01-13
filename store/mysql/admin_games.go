@@ -4,6 +4,14 @@ import (
 	"go-hlstats/core"
 )
 
+func (db *DataStore) GetRealGameByGameCode(code string) (string, error) {
+	var realGame string
+	if err := db.Get(&realGame, "SELECT realgame FROM hlstats_Games WHERE code = ?", code); err != nil {
+		return "", err
+	}
+	return realGame, nil
+}
+
 func (db *DataStore) GetSupportedGames() ([]*core.SupportedGame, error) {
 	var games []*core.SupportedGame
 	if err := db.Select(&games, "SELECT code,name FROM hlstats_Games_Supported"); err != nil {

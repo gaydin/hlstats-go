@@ -3,8 +3,6 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	"net/url"
-	"strings"
 
 	"github.com/labstack/echo/v4"
 
@@ -52,10 +50,8 @@ func AdminGamesPOST(store *mysql.DataStore) echo.HandlerFunc {
 		if err := ctx.Request().ParseForm(); err != nil {
 			log.Error().Err(err).Msg("Handler AdminUsersPOST ParseForm")
 		}
+
 		urlValues := ctx.Request().PostForm
-		for k, v := range ctx.Request().PostForm {
-			fmt.Printf("key: %s, value: %s\n", k, v)
-		}
 
 		// update games
 		for _, gameCode := range urlValues["rows[]"] {
@@ -92,14 +88,4 @@ func AdminGamesPOST(store *mysql.DataStore) echo.HandlerFunc {
 		}
 		return ctx.Redirect(http.StatusFound, "/admin/games")
 	}
-}
-
-func getGamesNamesForUpdate(values url.Values) []string {
-	var games []string
-	for formName := range values {
-		if strings.HasSuffix(formName, "_code") {
-			games = append(games, formName[:len(formName)-5])
-		}
-	}
-	return games
 }

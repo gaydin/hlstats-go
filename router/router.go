@@ -41,5 +41,9 @@ func RegisterHandlers(e *echo.Echo, store *mysql.DataStore, log zerolog.Logger) 
 	adminGroup.POST("/users", handlers.AdminUsersPOST(store))
 	adminGroup.GET("/games", handlers.AdminGamesGET(store))
 	adminGroup.POST("/games", handlers.AdminGamesPOST(store))
-
+	adminGameGroup := adminGroup.Group("/game/:game")
+	adminGameGroup.GET("/newserver", handlers.AdminGameNewServerGET(store))
+	adminGameGroup.POST("/newserver", handlers.AdminGameNewServerPOST(store))
+	adminGameGroup.GET("/servers", handlers.AdminGameServersGET(store))
+	adminGameGroup.POST("/servers", handlers.AdminGameServersPOST(store))
 }
