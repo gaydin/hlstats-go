@@ -15,9 +15,8 @@
             <li>
                 <a href="#{{ .Code }}Submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img src="/public/hlstatsimg/games/{{ .Code }}/game.png" alt="css"/><span>{{ .Name }}</span></a>
                 <ul class="collapse list-unstyled" id="{{ .Code }}Submenu">
-                    <li><a class="nav-link" href="/admin/game/{{ .Code }}"><i class="fas fa-server"></i>Server</a></li>
                     <li><a class="nav-link" href="/admin/game/{{ .Code }}/newserver"><i class="fas fa-plus-circle"></i>Add Server</a></li>
-                    <li><a class="nav-link" href="/admin/game/{{ .Code }}/servers"><i class="fas fa-sliders-h"></i>Edit Servers</a></li>
+                    <li><a class="nav-link" href="/admin/game/{{ .Code }}/servers"><i class="fas fa-server"></i>Edit Servers</a></li>
                 </ul>
             </li>
         {{ end }}

@@ -34,6 +34,7 @@ func AdminGamesGET(store *mysql.DataStore) echo.HandlerFunc {
 		}
 
 		return ctx.Render(http.StatusOK, "admin/games", map[string]interface{}{
+			"flash":           ctx.Get("flash"),
 			"game":            "",
 			"menu_games":      menuGames,
 			"games":           games,
@@ -86,6 +87,7 @@ func AdminGamesPOST(store *mysql.DataStore) echo.HandlerFunc {
 				return err
 			}
 		}
+		middleware.FlashSuccess(ctx, "Games saved")
 		return ctx.Redirect(http.StatusFound, "/admin/games")
 	}
 }

@@ -60,3 +60,15 @@ func setSession(c echo.Context, login string) {
 	}
 	c.SetCookie(cookie)
 }
+
+func AdminLogoutPOST() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cookie := &http.Cookie{
+			Name:   "_session",
+			MaxAge: 2147483647,
+			Value:  "",
+		}
+		c.SetCookie(cookie)
+		return c.Redirect(http.StatusFound, "/admin/auth")
+	}
+}

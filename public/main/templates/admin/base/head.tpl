@@ -26,7 +26,7 @@
                                           alt="HLstatsX Community Edition" title="HLstatsX Community Edition"></a>
             </div>
 
-            {{ template "admin/side_menu" .games }}
+            {{ template "admin/base/side_menu" .menu_games }}
         </nav>
 
         <!-- Page Content  -->

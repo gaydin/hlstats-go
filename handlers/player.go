@@ -84,7 +84,7 @@ func getChartData(skillChanges []*core.SkillChange) *core.ChartData {
 		Fill:            true,
 	}
 	for _, v := range skillChanges {
-		data.Labels = append(data.Labels, v.TS)
+		data.Labels = append(data.Labels, v.TS.Format("Mon Jan 2"))
 		skullChangeDataSet.Data = append(skullChangeDataSet.Data, v.SkillChange)
 		skillDataSet.Data = append(skillDataSet.Data, v.Skill)
 	}

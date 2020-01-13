@@ -4,6 +4,16 @@
 
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
+            {{ if .user }}
+                <ul>
+                    <form id="logout" method="post" action="/admin/logout">
+                        <a href="#" class="btn btn-outline-danger"
+                           onclick="document.getElementById('logout').submit();">
+                            Logout
+                        </a>
+                    </form>
+                </ul>
+            {{ end }}
         </ul>
     </div>
 </nav>

@@ -1,23 +1,23 @@
 {{ template "admin/base/head" . }}
 
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <p>Usernames and passwords can be set up for access to this HLstats Admin area. For most sites you
+        will only want one admin user - yourself. Some sites may however need to give administration
+        access to several people.</p>
+    <strong>Note</strong> Passwords are encrypted in the database and so cannot be viewed. However, you
+    can change a user's password by entering a new plain text value in the Password field.
+    <p>
+
+        <b>Access Levels</b><br>
+
+        <i>Restricted</i> users only have access to the Host Groups, Clan Tag Patterns,
+        Weapons, Teams, Awards and Actions configuration areas. This means these users cannot set
+        Options or add new Games, Servers or Admin Users to HLstats, or use any of the admin
+        Tools.<br>
+        <i>Administrator</i> users have full, unrestricted access.
+    </p>
+</div>
         <div class="my-3 p-3 bg-white rounded shadow-sm">
-                <p>
-                    Usernames and passwords can be set up for access to this HLstats Admin area. For most sites you
-                    will only want one admin user - yourself. Some sites may however need to give administration
-                    access to several people.</p>
-
-                <b>Note</b> Passwords are encrypted in the database and so cannot be viewed. However, you
-                can change a user's password by entering a new plain text value in the Password field.
-                <p>
-
-                    <b>Access Levels</b><br>
-
-                    &#149; <i>Restricted</i> users only have access to the Host Groups, Clan Tag Patterns,
-                    Weapons, Teams, Awards and Actions configuration areas. This means these users cannot set
-                    Options or add new Games, Servers or Admin Users to HLstats, or use any of the admin
-                    Tools.<br>
-                    &#149; <i>Administrator</i> users have full, unrestricted access.
-                </p>
                 <form method="post" action="/admin/users">
                     <table class="table">
                         <thead>

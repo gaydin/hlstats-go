@@ -272,7 +272,7 @@ const (
 `
 
 	querySkillChangeByPlayer = `
-	SELECT UNIX_TIMESTAMP(eventTime) AS ts, skill, skill_change FROM hlstats_Players_History WHERE playerId = ? ORDER BY eventTime DESC LIMIT 30
+	SELECT eventTime AS ts, skill, skill_change FROM hlstats_Players_History WHERE playerId = ? ORDER BY eventTime DESC LIMIT 30
 `
 
 	queryTotalPlayers24hByGame = `

@@ -38,6 +38,7 @@ func Index(store *mysql.DataStore) echo.HandlerFunc {
 		}
 
 		return c.Render(http.StatusOK, "index", map[string]interface{}{
+			//"user"
 			"games":              games,
 			"top_player_by_game": topPlayersByGame,
 		})

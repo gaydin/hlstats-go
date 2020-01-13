@@ -1,5 +1,9 @@
 package core
 
+import (
+	"time"
+)
+
 type (
 	ChartData struct {
 		Labels   []interface{}   `json:"labels"`
@@ -16,8 +20,8 @@ type (
 	}
 
 	SkillChange struct {
-		TS          int64 `db:"ts"`
-		Skill       int64 `db:"skill"`
-		SkillChange int64 `db:"skill_change"`
+		TS          time.Time `db:"ts"`
+		Skill       int64     `db:"skill"`
+		SkillChange int64     `db:"skill_change"`
 	}
 )
