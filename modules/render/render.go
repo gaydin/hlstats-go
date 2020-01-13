@@ -72,7 +72,7 @@ func findAndParseTemplates(rootDir string) (*template.Template, error) {
 				return e2
 			}
 
-			name := path[pfx:]
+			name := strings.ReplaceAll(path[pfx:], "\\", "/")
 			t := root.New(name[:len(name)-len(suffix)]).Funcs(getTemplateFunctemplate())
 			t, e2 = t.Parse(string(b))
 			if e2 != nil {

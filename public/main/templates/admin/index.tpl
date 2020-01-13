@@ -1,9 +1,6 @@
-{{ template "base/head" . }}
-<div class="row justify-content-center">
-    <div class="col-sm-2">
-        {{ template "admin/side_menu" .games }}
-    </div>
-    <div class="col-sm-6">
+{{ template "admin/base/head" . }}
+
+        <h2>Collapsible Sidebar Using Bootstrap 4</h2>
         <div class="my-3 p-3 bg-white rounded shadow-sm">
             <p><strong>Site settings</strong></p>
             <form method="post" action="/admin/">
@@ -522,5 +519,5 @@ RewriteRule sig-(.*)-(.*).png$ sig.php?player_id=$1&background=$2 [L]</textarea>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-    </div>
-{{ template "base/footer" . }}
+
+{{ template "admin/base/footer" . }}
