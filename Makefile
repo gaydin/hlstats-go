@@ -43,6 +43,9 @@ build: ## Build the binary file
 clean: ## Remove previous build
 	@rm -rf build
 
+archive:
+	zip -r release.zip build/hlstats/.
+
 docker: build ## Build server in docker
 	@docker-compose up --build hlstats
 

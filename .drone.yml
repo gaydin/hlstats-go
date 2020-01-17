@@ -32,6 +32,25 @@ steps:
       branch:
         - master
 
+  - name: archive
+    image: alpine:3.11
+    commands:
+      - apk --no-cache add make bash zip
+      - make archive
+    when:
+      event:
+        - tag
+
+  - name: release
+    image: plugins/github-release
+    settings:
+      api_key:
+        from_secret: github_token
+      files: release.zip
+      draft: true
+    when:
+      event: tag
+
 volumes:
   - name: cache
     host:
