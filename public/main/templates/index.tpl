@@ -8,21 +8,19 @@
                 <th scope="col">Game</th>
                 <th scope="col">Players</th>
                 <th scope="col">Top Player</th>
-                <th scope="col">Top Clan</th>
             </tr>
             </thead>
             <tbody>
             {{ range .games }}
                 <tr>
-                    <td><a href="/game/{{ .Code }}/"><img src="/public/hlstatsimg/games/{{ .Code }}/game.png" alt="css"/>{{ .Name }}</a></td>
-                    <td><img src="/public/hlstatsimg/games/{{ .Code }}/game.png" alt="css"/>{{ .Name }}</td>
+                    <td><a href="/game/{{ .Game.Code }}/"><img src="/public/hlstatsimg/games/{{ .Game.Code }}/game.png" alt="css"/>{{ .Game.Name }}</a></td>
+                    <td>{{ .NumPlayers }}</td>
                     <td>
-                        {{ $topPlayer := index $topPlayers .Code}}
+                        {{ $topPlayer := index $topPlayers .Game.Code}}
                         {{ if $topPlayer }}
                             <a href="/player/{{ $topPlayer.ID }}">{{ $topPlayer.LastName}}</a>
                         {{ end }}
                     </td>
-                    <td><img src="/public/hlstatsimg/games/{{ .Code }}/game.png" alt="css"/>{{ .Name }}</td>
                 </tr>
 
             {{end}}

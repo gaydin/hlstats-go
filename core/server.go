@@ -1,5 +1,9 @@
 package core
 
+import (
+	"database/sql"
+)
+
 type (
 	Server struct {
 		ServerID      int64   `db:"serverId"`
@@ -41,5 +45,10 @@ type (
 		City          string  `db:"city"`
 		Country       string  `db:"country"`
 		LastEvent     int64   `db:"last_event"`
+	}
+
+	ServerOnline struct {
+		Actual  sql.NullInt64
+		Maximum sql.NullInt64
 	}
 )
