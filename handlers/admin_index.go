@@ -106,6 +106,7 @@ func AdminIndexGET(store *mysql.DataStore) echo.HandlerFunc {
 			"menu_games": games,
 			"login":      ctx.Get("login"),
 			"options":    options,
+			"IsIndex":    true,
 		})
 	}
 }

@@ -31,6 +31,7 @@ func AdminUsersGET(store *mysql.DataStore) echo.HandlerFunc {
 
 		return ctx.Render(http.StatusOK, "admin/users", map[string]interface{}{
 			"game":       "",
+			"IsUsers":    true,
 			"menu_games": games,
 			"login":      ctx.Get("login"),
 			"users":      users,

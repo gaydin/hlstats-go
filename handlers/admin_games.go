@@ -40,6 +40,7 @@ func AdminGamesGET(store *mysql.DataStore) echo.HandlerFunc {
 			"games":           games,
 			"supported_games": supportedGames,
 			"login":           ctx.Get("login"),
+			"IsGames":         true,
 		})
 	}
 }
