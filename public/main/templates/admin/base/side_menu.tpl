@@ -1,4 +1,5 @@
 {{ $current_game := .game }}
+{{ $root := . }}
 <div class="sidebar-sticky">
     <ul class="list-unstyled components">
         <h5>General Settings</h5>
@@ -27,11 +28,11 @@
                     <img src="/public/hlstatsimg/games/{{ .Code }}/game.png" alt="css"/><span>{{ .Name }}</span>
                 </a>
                 <ul class="collapse list-unstyled{{ if eq .Code $current_game }} show{{ end }}" id="{{ .Code }}Submenu">
-                    <li>
+                    <li{{ if eq .Code $current_game }}{{ if $root.IsGameNewServer }} class="active"{{end}}{{end}}>
                         <a class="nav-link" href="/admin/game/{{ .Code }}/newserver">
                             <i class="fas fa-plus-circle"></i>Add Server</a>
                     </li>
-                    <li>
+                    <li{{ if eq .Code $current_game }}{{ if $root.IsGameServers }} class="active"{{end}}{{end}}>
                         <a class="nav-link" href="/admin/game/{{ .Code }}/servers">
                             <i class="fas fa-server"></i>Edit Servers</a>
                     </li>

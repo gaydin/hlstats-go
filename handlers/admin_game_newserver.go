@@ -27,10 +27,11 @@ func AdminGameNewServerGET(store *mysql.DataStore) echo.HandlerFunc {
 			return err
 		}
 		return ctx.Render(200, "admin/game_new_server", map[string]interface{}{
-			"game":           game,
-			"menu_games":     games,
-			"login":          ctx.Get("login"),
-			"mods_supported": modsSupported,
+			"game":            game,
+			"IsGameNewServer": true,
+			"menu_games":      games,
+			"login":           ctx.Get("login"),
+			"mods_supported":  modsSupported,
 		})
 	}
 }
