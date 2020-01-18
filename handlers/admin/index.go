@@ -1,4 +1,4 @@
-package handlers
+package admin
 
 import (
 	"database/sql"
@@ -11,7 +11,7 @@ import (
 	"go-hlstats/store/mysql"
 )
 
-func AdminIndexPOST(store *mysql.DataStore) echo.HandlerFunc {
+func IndexPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		ctx.Request().ParseForm()
 		for k, v := range ctx.Request().PostForm {
@@ -37,7 +37,7 @@ func AdminIndexPOST(store *mysql.DataStore) echo.HandlerFunc {
 	}
 }
 
-func AdminIndexGET(store *mysql.DataStore) echo.HandlerFunc {
+func IndexGET(store *mysql.DataStore) echo.HandlerFunc {
 	selectOptionsTypes := map[string]struct{}{
 		"bannerdisplay":            {},
 		"playerinfo_tabs":          {},
@@ -104,7 +104,6 @@ func AdminIndexGET(store *mysql.DataStore) echo.HandlerFunc {
 		return render(ctx, http.StatusOK, "admin/index", map[string]interface{}{
 			"game":       game,
 			"menu_games": games,
-			"login":      ctx.Get("login"),
 			"options":    options,
 			"IsIndex":    true,
 		})

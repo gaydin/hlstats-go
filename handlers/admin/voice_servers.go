@@ -1,4 +1,4 @@
-package handlers
+package admin
 
 import (
 	"database/sql"
@@ -13,7 +13,7 @@ import (
 	"go-hlstats/store/mysql"
 )
 
-func AdminVoiceServersGET(store *mysql.DataStore) echo.HandlerFunc {
+func VoiceServersGET(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		log := middleware.FromContext(ctx)
 
@@ -33,14 +33,13 @@ func AdminVoiceServersGET(store *mysql.DataStore) echo.HandlerFunc {
 			"game":           "",
 			"menu_games":     menuGames,
 			"voice_servers":  voiceServers,
-			"login":          ctx.Get("login"),
 			"IsVoiceServers": true,
 		})
 	}
 }
 
 // TODO: len check
-func AdminVoiceServersPOST(store *mysql.DataStore) echo.HandlerFunc {
+func VoiceServersPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		log := middleware.FromContext(ctx)
 

@@ -35,7 +35,7 @@ func AuthMiddleware(store *mysql.DataStore) echo.MiddlewareFunc {
 					log.Error().Err(err).Msg("AuthMiddleware GetUserLogin error")
 					return err
 				}
-				ctx.Set("login", dbAccount)
+				ctx.Set("user", dbAccount)
 			}
 			return next(ctx)
 		}
@@ -54,8 +54,8 @@ func RequireLogin() echo.MiddlewareFunc {
 				return next(ctx)
 			}
 
-			login := getUser(ctx)
-			if login == nil {
+			user := getUser(ctx)
+			if user == nil {
 				return ctx.Redirect(http.StatusFound, "/admin/auth")
 			}
 
@@ -65,7 +65,7 @@ func RequireLogin() echo.MiddlewareFunc {
 }
 
 func getUser(ctx echo.Context) *core.User {
-	user, ok := ctx.Get("login").(*core.User)
+	user, ok := ctx.Get("user").(*core.User)
 	if !ok {
 		return nil
 	}

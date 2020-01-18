@@ -1,4 +1,4 @@
-package handlers
+package admin
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 	"go-hlstats/store/mysql"
 )
 
-func AdminGameNewServerGET(store *mysql.DataStore) echo.HandlerFunc {
+func GameNewServerGET(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		game := ctx.Param("game")
 		games, err := store.GetGames(false)
@@ -30,13 +30,12 @@ func AdminGameNewServerGET(store *mysql.DataStore) echo.HandlerFunc {
 			"game":            game,
 			"IsGameNewServer": true,
 			"menu_games":      games,
-			"login":           ctx.Get("login"),
 			"mods_supported":  modsSupported,
 		})
 	}
 }
 
-func AdminGameNewServerPOST(store *mysql.DataStore) echo.HandlerFunc {
+func GameNewServerPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		log := middleware.FromContext(ctx)
 		game := ctx.Param("game")

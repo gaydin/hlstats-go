@@ -1,4 +1,4 @@
-package handlers
+package admin
 
 import (
 	"crypto/md5"
@@ -14,13 +14,13 @@ import (
 	"go-hlstats/store/mysql"
 )
 
-func AdminAuthGET() echo.HandlerFunc {
+func AuthGET() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		return render(ctx, 200, "admin/auth", nil)
 	}
 }
 
-func AdminAuthPOST(store *mysql.DataStore) echo.HandlerFunc {
+func AuthPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		log := middleware.FromContext(ctx)
 		username := ctx.FormValue("login")
@@ -61,7 +61,7 @@ func setSession(c echo.Context, login string) {
 	c.SetCookie(cookie)
 }
 
-func AdminLogoutPOST() echo.HandlerFunc {
+func LogoutPOST() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie := &http.Cookie{
 			Name:   "_session",

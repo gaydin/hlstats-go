@@ -1,4 +1,4 @@
-package handlers
+package admin
 
 import (
 	"crypto/md5"
@@ -16,7 +16,7 @@ import (
 	"go-hlstats/store/mysql"
 )
 
-func AdminUsersGET(store *mysql.DataStore) echo.HandlerFunc {
+func UsersGET(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		log := middleware.FromContext(ctx)
 		users, err := store.GetUsers()
@@ -33,13 +33,12 @@ func AdminUsersGET(store *mysql.DataStore) echo.HandlerFunc {
 			"game":       "",
 			"IsUsers":    true,
 			"menu_games": games,
-			"login":      ctx.Get("login"),
 			"users":      users,
 		})
 	}
 }
 
-func AdminUsersPOST(store *mysql.DataStore) echo.HandlerFunc {
+func UsersPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		log := middleware.FromContext(ctx)
 

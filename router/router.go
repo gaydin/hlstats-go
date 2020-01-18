@@ -5,6 +5,7 @@ import (
 	"github.com/rs/zerolog"
 
 	"go-hlstats/handlers"
+	"go-hlstats/handlers/admin"
 	"go-hlstats/middleware"
 	"go-hlstats/store/mysql"
 )
@@ -35,22 +36,26 @@ func RegisterHandlers(e *echo.Echo, store *mysql.DataStore, log zerolog.Logger) 
 	adminGroup := e.Group("/admin")
 	adminGroup.Use(middleware.RequireLogin())
 
-	adminGroup.GET("/", handlers.AdminIndexGET(store))
-	adminGroup.POST("/", handlers.AdminIndexPOST(store))
-	adminGroup.GET("/auth", handlers.AdminAuthGET())
-	adminGroup.POST("/auth", handlers.AdminAuthPOST(store))
-	adminGroup.POST("/logout", handlers.AdminLogoutPOST())
-	adminGroup.GET("/users", handlers.AdminUsersGET(store))
-	adminGroup.POST("/users", handlers.AdminUsersPOST(store))
-	adminGroup.GET("/games", handlers.AdminGamesGET(store))
-	adminGroup.POST("/games", handlers.AdminGamesPOST(store))
-	adminGroup.POST("/voicecomm", handlers.AdminVoiceServersPOST(store))
-	adminGroup.GET("/voicecomm", handlers.AdminVoiceServersGET(store))
+	adminGroup.GET("/", admin.IndexGET(store))
+	adminGroup.POST("/", admin.IndexPOST(store))
+	adminGroup.GET("/auth", admin.AuthGET())
+	adminGroup.POST("/auth", admin.AuthPOST(store))
+	adminGroup.POST("/logout", admin.LogoutPOST())
+	adminGroup.GET("/users", admin.UsersGET(store))
+	adminGroup.POST("/users", admin.UsersPOST(store))
+	adminGroup.GET("/games", admin.GamesGET(store))
+	adminGroup.POST("/games", admin.GamesPOST(store))
+	adminGroup.POST("/voicecomm", admin.VoiceServersPOST(store))
+	adminGroup.GET("/voicecomm", admin.VoiceServersGET(store))
+	adminGroup.POST("/clantags", admin.ClanTagPatternsPOST(store))
+	adminGroup.GET("/clantags", admin.ClanTagPatternsGET(store))
+	adminGroup.POST("/hostgroups", admin.HostGroupsPOST(store))
+	adminGroup.GET("/hostgroups", admin.HostGroupsGET(store))
 
 	adminGameGroup := adminGroup.Group("/game/:game")
 
-	adminGameGroup.GET("/newserver", handlers.AdminGameNewServerGET(store))
-	adminGameGroup.POST("/newserver", handlers.AdminGameNewServerPOST(store))
-	adminGameGroup.GET("/servers", handlers.AdminGameServersGET(store))
-	adminGameGroup.POST("/servers", handlers.AdminGameServersPOST(store))
+	adminGameGroup.GET("/newserver", admin.GameNewServerGET(store))
+	adminGameGroup.POST("/newserver", admin.GameNewServerPOST(store))
+	adminGameGroup.GET("/servers", admin.GameServersGET(store))
+	adminGameGroup.POST("/servers", admin.GameServersPOST(store))
 }
