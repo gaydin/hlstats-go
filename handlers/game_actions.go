@@ -16,7 +16,7 @@ func GameActions(store *mysql.DataStore) echo.HandlerFunc {
 			return err
 		}
 		actions, err := store.GetActionsByGame(paramGame)
-		return c.Render(http.StatusOK, "game/actions", map[string]interface{}{
+		return render(c, http.StatusOK, "game/actions", map[string]interface{}{
 			"pageIsActions": struct{}{},
 			"game":          paramGame,
 			"actions":       actions,

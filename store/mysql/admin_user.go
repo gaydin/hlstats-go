@@ -30,6 +30,7 @@ func (db *DataStore) UpdateUser(username string, user *core.User) error {
 	_, err := db.Exec("UPDATE hlstats_Users SET username=?, password=?,acclevel=? WHERE username = ?", user.Username, user.Password, user.AccLevel, username)
 	return err
 }
+
 func (db *DataStore) DeleteUser(username string) error {
 	_, err := db.Exec("DELETE FROM hlstats_Users WHERE username=?", username)
 	return err

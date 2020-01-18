@@ -65,7 +65,7 @@ func Index(store *mysql.DataStore) echo.HandlerFunc {
 			topPlayersByGame[games[i].Code] = topPlayer
 		}
 
-		return c.Render(http.StatusOK, "index", map[string]interface{}{
+		return render(c, http.StatusOK, "index", map[string]interface{}{
 			//"user"
 			"games":              gamesForTable,
 			"top_player_by_game": topPlayersByGame,

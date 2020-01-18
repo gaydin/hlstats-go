@@ -33,7 +33,7 @@ func AdminGamesGET(store *mysql.DataStore) echo.HandlerFunc {
 			return err
 		}
 
-		return ctx.Render(http.StatusOK, "admin/games", map[string]interface{}{
+		return render(ctx, http.StatusOK, "admin/games", map[string]interface{}{
 			"flash":           ctx.Get("flash"),
 			"game":            "",
 			"menu_games":      menuGames,

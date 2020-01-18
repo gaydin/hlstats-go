@@ -16,7 +16,7 @@ import (
 
 func AdminAuthGET() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		return ctx.Render(200, "admin/auth", nil)
+		return render(ctx, 200, "admin/auth", nil)
 	}
 }
 

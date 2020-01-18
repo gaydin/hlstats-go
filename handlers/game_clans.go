@@ -9,6 +9,6 @@ import (
 func GameClans() echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		return c.Render(http.StatusOK, "game/clans", nil)
+		return render(c, http.StatusOK, "game/clans", nil)
 	}
 }

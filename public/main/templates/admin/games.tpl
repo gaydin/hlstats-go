@@ -36,7 +36,7 @@
                     </td>
                     <td><input type="text" name="{{ $game.Code }}_name" class="form-control"
                                value="{{ $game.Name }}"></td>
-                    <td><select name="{{ $game.Code }}_realgame">
+                    <td><select name="{{ $game.Code }}_realgame"  class="custom-select" >
                             {{ range $root.supported_games }}
                                 <option value="{{ .Code }}"
                                         {{ if eq $game.RealGame .Code }}selected="selected"{{ end }}>{{ .Name }}</option>

@@ -15,6 +15,7 @@ func RegisterHandlers(e *echo.Echo, store *mysql.DataStore, log zerolog.Logger) 
 	e.Use(
 		middleware.LoggerMiddleware(log),
 		middleware.AuthMiddleware(store),
+		middleware.OptionsMiddleware(store),
 		middleware.FlashMiddleware(log),
 	)
 
@@ -43,6 +44,8 @@ func RegisterHandlers(e *echo.Echo, store *mysql.DataStore, log zerolog.Logger) 
 	adminGroup.POST("/users", handlers.AdminUsersPOST(store))
 	adminGroup.GET("/games", handlers.AdminGamesGET(store))
 	adminGroup.POST("/games", handlers.AdminGamesPOST(store))
+	adminGroup.POST("/voicecomm", handlers.AdminVoiceServersPOST(store))
+	adminGroup.GET("/voicecomm", handlers.AdminVoiceServersGET(store))
 
 	adminGameGroup := adminGroup.Group("/game/:game")
 

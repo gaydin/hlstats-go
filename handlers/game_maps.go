@@ -28,7 +28,7 @@ func GameMaps(store *mysql.DataStore) echo.HandlerFunc {
 			return err
 		}
 
-		return c.Render(http.StatusOK, "game/maps", map[string]interface{}{
+		return render(c, http.StatusOK, "game/maps", map[string]interface{}{
 			"game":       game,
 			"pageIsMaps": struct{}{},
 			"maps":       maps,

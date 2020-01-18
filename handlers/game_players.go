@@ -22,7 +22,7 @@ func GamePlayers(store *mysql.DataStore) echo.HandlerFunc {
 		}
 
 		paginator := pagination.NewPagination(int(total), limit, page, 5)
-		return c.Render(http.StatusOK, "game/players", map[string]interface{}{
+		return render(c, http.StatusOK, "game/players", map[string]interface{}{
 			"pageIsPlayers": struct{}{},
 			"game":          game,
 			"players":       players,
@@ -45,6 +45,6 @@ func gamePlayersOrderValidate(s string) string {
 
 func GameClansCountry() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		return c.Render(http.StatusOK, "game/clans_country", nil)
+		return render(c, http.StatusOK, "game/clans_country", nil)
 	}
 }

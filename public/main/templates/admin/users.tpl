@@ -39,7 +39,7 @@
                                            value="{{ .Username }}"></td>
                                 <td><input type="password" name="{{ .Username }}_password" class="form-control"
                                            placeholder="( encrypted )"></td>
-                                <td><select name="{{ .Username }}_acclevel" style="width:125px">
+                                <td><select name="{{ .Username }}_acclevel"  class="custom-select" >
                                         <option value="0" {{ if eq .AccLevel 0 }}selected="selected"{{ end }}>No
                                             Access
                                         </option>
@@ -64,7 +64,7 @@
                                        id="exampleInputPassword1"></td>
                             <td><input type="password" name="new_password" class="form-control"
                                        id="exampleInputPassword1"></td>
-                            <td><select name="new_acclevel" style="width:125px">
+                            <td><select name="new_acclevel"  class="custom-select" >
                                     <option value="0" selected="selected">No Access</option>
                                     <option value="80">Restricted</option>
                                     <option value="100">Administrator</option>

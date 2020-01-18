@@ -26,7 +26,7 @@ func AdminGameServersGET(store *mysql.DataStore) echo.HandlerFunc {
 		if err != nil {
 			return err
 		}
-		return ctx.Render(200, "admin/game_servers", map[string]interface{}{
+		return render(ctx, 200, "admin/game_servers", map[string]interface{}{
 			"game":          game,
 			"IsGameServers": true,
 			"menu_games":    games,

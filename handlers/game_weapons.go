@@ -26,7 +26,7 @@ func GameWeapons(store *mysql.DataStore) echo.HandlerFunc {
 			log.Error().Err(err).Msg("Handler GameWeapons GetWeapons")
 			return err
 		}
-		return c.Render(http.StatusOK, "game/weapons", map[string]interface{}{
+		return render(c, http.StatusOK, "game/weapons", map[string]interface{}{
 			"pageIsWeapons": struct{}{},
 			"game":          game,
 			"weapons":       weapons,

@@ -33,7 +33,7 @@ func Game(store *mysql.DataStore) echo.HandlerFunc {
 			return err
 		}
 
-		return c.Render(http.StatusOK, "game/index", map[string]interface{}{
+		return render(c, http.StatusOK, "game/index", map[string]interface{}{
 			"hpk":            fmt.Sprintf("%.2f", (float64(totalStats.Headshots)/float64(totalStats.Kills))*100),
 			"totalKills":     totalStats.Kills,
 			"totalHeadshots": totalStats.Headshots,

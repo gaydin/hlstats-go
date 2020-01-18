@@ -54,7 +54,7 @@ func Player(store *mysql.DataStore) echo.HandlerFunc {
 			return err
 		}
 
-		return c.Render(http.StatusOK, "player/player", map[string]interface{}{
+		return render(c, http.StatusOK, "player/player", map[string]interface{}{
 			"game":           playerData.Game,
 			"chartData":      getChartData(skillChanges),
 			"favoriteMap":    favoriteMap,

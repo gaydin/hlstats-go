@@ -18,7 +18,7 @@ func GameMap(store *mysql.DataStore) echo.HandlerFunc {
 			log.Error().Err(err).Msg("Handler GameMap GetMapEventsFragsAndPlayers")
 			return err
 		}
-		return c.Render(http.StatusOK, "game/map", map[string]interface{}{
+		return render(c, http.StatusOK, "game/map", map[string]interface{}{
 			"game": game,
 			"data": eventsFragsAndPlayers,
 			//"chartData":      getChartData(skillChanges),

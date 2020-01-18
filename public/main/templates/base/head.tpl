@@ -6,7 +6,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="images/favicon.png">
     <!-- Site Title  -->
-    <title>Ttle</title>
+    <title>{{ .OptionsTitle }}</title>
     <!-- Vendor Bundle CSS -->
     <link rel="stylesheet" href="/public/css/bootstrap.min.css">
     <!-- Custom styles for this template -->
