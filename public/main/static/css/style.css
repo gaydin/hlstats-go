@@ -280,6 +280,11 @@ a[aria-expanded="true"] {
     background: rgba(255, 255, 255, 0.1);
 }
 
+.sidebar ul li ul li.active > a {
+    color: #fff;
+    background: rgb(8, 101, 180);
+}
+
 .sidebar ul li a:hover, .sidebar ul li.active:hover {
     color: #7386D5;
     background: #fff;
