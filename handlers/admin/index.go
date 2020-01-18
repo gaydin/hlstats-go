@@ -13,7 +13,9 @@ import (
 
 func IndexPOST(store *mysql.DataStore) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		ctx.Request().ParseForm()
+		if err := ctx.Request().ParseForm(); err != nil {
+			return err
+		}
 		for k, v := range ctx.Request().PostForm {
 			option, err := store.GetOptionByName(k)
 			if err != nil && err != sql.ErrNoRows {

@@ -86,18 +86,6 @@ const (
 		)
 `
 
-	queryPlayerDataByPlayerID = `
-	SELECT
-		IFNULL(ROUND((SUM(hlstats_Events_Statsme.hits) / SUM(hlstats_Events_Statsme.shots) * 100), 2), 0.0) AS accuracy,
-		SUM(hlstats_Events_Statsme.shots) AS shots,
-		SUM(hlstats_Events_Statsme.hits) AS hits,
-		SUM(hlstats_Events_Statsme.kills) AS kills
-	FROM
-		hlstats_Events_Statsme
-	WHERE
-		hlstats_Events_Statsme.playerId='$player'
-`
-
 	queryPlayerWithClanByID = `
 	SELECT
 		hlstats_Players.playerId,
@@ -307,16 +295,6 @@ const (
 		game=?
 `
 
-	queryMapKillsAndHeadshotsByGame = `
-	 	SELECT
-		SUM(hlstats_Maps_Counts.kills) AS count_kills,
-		SUM(hlstats_Maps_Counts.headshots) AS count_headshots
-	FROM
-		hlstats_Maps_Counts
-	WHERE
-		hlstats_Maps_Counts.game = ?
-`
-
 	queryMaps = `
 	SELECT
 		IF(hlstats_Maps_Counts.map = '', '(Unaccounted)', hlstats_Maps_Counts.map) AS map,
@@ -351,18 +329,5 @@ const (
 		AND hlstats_Players.hideranking<>'1'
 	GROUP BY
 		hlstats_Events_Frags.killerId
-`
-
-	queryMapTotalKills = `
-	SELECT
-		COUNT(DISTINCT hlstats_Events_Frags.killerId),
-		SUM(hlstats_Events_Frags.map='$map')
-	FROM
-		hlstats_Events_Frags,
-	  hlstats_Servers
-	WHERE
-		hlstats_Servers.serverId = hlstats_Events_Frags.serverId
-		AND hlstats_Events_Frags.map='$map'
-		AND hlstats_Servers.game='$game'
 `
 )
