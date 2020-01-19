@@ -2,9 +2,6 @@ PROJECT_NAME := "hlstats"
 GO_FILES := $(shell find . -name '*.go' | grep -v _test.go)
 DOCKER_COMPOSE := "docker-compose"
 .PHONY: all revive test build generate clean docker setup help
-export GO111MODULE=on
-export CGO_ENABLED=0
-export GOOS=linux
 
 ifneq ($(DRONE_TAG),)
 	VERSION ?= $(subst v,,$(DRONE_TAG))
@@ -36,7 +33,9 @@ test: ## Run unittests
 	@go test -cover -short ./...
 
 build: ## Build the binary file
-	@go build --a -installsuffix cgo -ldflags '-s -w $(LDFLAGS)' -o ./build/hlstats/hlstats
+	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build --a -installsuffix cgo -ldflags '-s -w $(LDFLAGS)' -o ./build/hlstats/hlstats
+	@GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build --a -installsuffix cgo -ldflags '-s -w $(LDFLAGS)' -o ./build/hlstats/hlstats.osx
+	@GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build --a -installsuffix cgo -ldflags '-s -w $(LDFLAGS)' -o ./build/hlstats/hlstats.exe
 	@cp -r public ./build/hlstats
 
 
