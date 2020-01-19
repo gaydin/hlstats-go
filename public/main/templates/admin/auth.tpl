@@ -1,5 +1,5 @@
 {{ template "base/head" . }}
-<form class="form-signin"  method="post" action="/admin/auth" id="loginform" novalidate>
+<form class="form-signin"  method="post" action="/auth" id="loginform" novalidate>
     <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control" name="login" placeholder="Login" required autofocus>

@@ -4,17 +4,19 @@
 
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            {{ if .user }}
-                <ul>
-                    <form id="logout" method="post" action="/admin/logout">
-                        <a href="#" class="btn btn-outline-danger"
-                           onclick="document.getElementById('logout').submit();">
-                            Logout
-                        </a>
-                    </form>
-                </ul>
-            {{ end }}
         </ul>
+        {{ if .user }}
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2" href="/admin/">Панель управления</a>
+            </nav>
+            <form id="logout" method="post" action="/admin/logout">
+                <a href="#" class="btn btn-outline-danger"
+                   onclick="document.getElementById('logout').submit();">
+                    Logout
+                </a>
+            </form>
+        {{ end }}
+
     </div>
 </nav>
 

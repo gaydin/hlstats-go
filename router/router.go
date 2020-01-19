@@ -32,14 +32,15 @@ func RegisterHandlers(e *echo.Echo, store *mysql.DataStore, log zerolog.Logger) 
 	gameGroup.GET("/maps/:map", handlers.GameMap(store))
 	gameGroup.GET("/players", handlers.GamePlayers(store))
 
+	e.GET("/auth", admin.AuthGET())
+	e.POST("/auth", admin.AuthPOST(store))
+
 	// admin zone
 	adminGroup := e.Group("/admin")
 	adminGroup.Use(middleware.RequireLogin())
 
 	adminGroup.GET("/", admin.IndexGET(store))
 	adminGroup.POST("/", admin.IndexPOST(store))
-	adminGroup.GET("/auth", admin.AuthGET())
-	adminGroup.POST("/auth", admin.AuthPOST(store))
 	adminGroup.POST("/logout", admin.LogoutPOST())
 	adminGroup.GET("/users", admin.UsersGET(store))
 	adminGroup.POST("/users", admin.UsersPOST(store))

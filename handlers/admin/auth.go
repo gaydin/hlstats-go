@@ -16,6 +16,9 @@ import (
 
 func AuthGET() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
+		if ctx.Get("user") != nil {
+			return ctx.Redirect(http.StatusFound, "/admin/")
+		}
 		return render(ctx, 200, "admin/auth", nil)
 	}
 }
@@ -50,7 +53,7 @@ func AuthPOST(store *mysql.DataStore) echo.HandlerFunc {
 
 func setSession(c echo.Context, login string) {
 	cookie := &http.Cookie{
-		Name:    "_session",
+		Name:    "session",
 		Expires: time.Now().Add(120 * time.Hour),
 		Value: authcookie.NewSinceNow(
 			login,
@@ -64,11 +67,13 @@ func setSession(c echo.Context, login string) {
 func LogoutPOST() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie := &http.Cookie{
-			Name:   "_session",
-			MaxAge: 2147483647,
-			Value:  "",
+			Name:     "session",
+			MaxAge:   2147483647,
+			Value:    "",
+			Path:     "/",
+			HttpOnly: true,
 		}
 		c.SetCookie(cookie)
-		return c.Redirect(http.StatusFound, "/admin/auth")
+		return c.Redirect(http.StatusFound, "/auth")
 	}
 }

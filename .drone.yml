@@ -28,7 +28,6 @@ steps:
         from_secret: docker_password
       registry: docker.pkg.github.com
       repo: docker.pkg.github.com/gaydin/hlstats-go/server-web
-      tags: latest
     when:
       event:
         exclude:
