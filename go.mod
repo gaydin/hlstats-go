@@ -1,6 +1,6 @@
 module go-hlstats
 
-go 1.13.6
+go 1.15
 
 require (
 	github.com/caarlos0/env/v6 v6.1.0
