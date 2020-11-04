@@ -11,7 +11,7 @@ workspace:
 
 steps:
   - name: build
-    image: golang:1.13.6
+    image: golang:1.15.2
     volumes:
       - name: cache
         path: /go/pkg/mod
